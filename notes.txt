@@ -1,0 +1,7 @@
+response = requests.get('https://tactics.tools/explorer')
+response = requests.get('https://d2.tft.tools/explorer-data/13201/1/u-TFT9_Sona-0')
+
+https://d2.tft.tools/explorer-data/13201/1/u-TFT9_Sona-0 = any Sona
+https://d2.tft.tools/explorer-data/13201/1/u-TFT9_Sona-3 = 3* Sona
+https://d2.tft.tools/explorer-data/13201/1/u-TFT9_Sona-3/u-TFT9_VelKoz-0 filter for Sona 3*, any Velkoz
+u-TFT9 = unit, set 9
