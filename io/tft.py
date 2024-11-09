@@ -32,3 +32,12 @@ def get_base_data(set_num):
         if len(champ['traits']) > 0:
             return_list.append({k: v for k, v in champ.items() if k in keys})
     return return_list
+
+
+COLOR_MAP = {
+    1: '#BBBBBB',
+    2: '#37D488',
+    3: '#6ECCFF',
+    4: '#DC38C3',
+    5: '#F1C555'
+}

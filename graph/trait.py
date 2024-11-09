@@ -1,7 +1,6 @@
 import networkx as nx
 
-from io.tft import get_base_data, get_unique_traits
-from set_12.unit_graph import COLOR_MAP
+from io.tft import get_base_data, get_unique_traits, COLOR_MAP
 
 
 def get_trait_node_graph(set_num, show_unique_traits=False, costs=list(range(1, 6))):
