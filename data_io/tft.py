@@ -1,7 +1,7 @@
 import functools
 import json
 
-from io.gcp import read_from_bucket
+from data_io.gcp import read_from_bucket
 
 
 @functools.lru_cache(maxsize=10)
