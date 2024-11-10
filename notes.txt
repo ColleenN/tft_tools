@@ -5,3 +5,77 @@ https://d2.tft.tools/explorer-data/13201/1/u-TFT9_Sona-0 = any Sona
 https://d2.tft.tools/explorer-data/13201/1/u-TFT9_Sona-3 = 3* Sona
 https://d2.tft.tools/explorer-data/13201/1/u-TFT9_Sona-3/u-TFT9_VelKoz-0 filter for Sona 3*, any Velkoz
 u-TFT9 = unit, set 9
+
+
+
+{
+    'items'
+    'setData': [
+        # There's 14 items here. Covers base sets + alternate game modes
+        {'augments', 'champions', 'items', 'mutator', 'name', 'number', 'traits'} # Mutator = the actual unique identifier
+    ]
+    'sets': {
+    # Only "currently used" sets? >>> Turns out this is a legacy field
+        '1': {...}, '3': {...}, '5': {}, '11': {},
+        '12': {
+            'champions': [
+                {'ability', 'apiName', 'characterName', 'cost', 'icon', 'name', 'squareIcon', 'stats', 'tileIcon', 'traits'},
+                {}
+                ...
+            ]
+            'name': 'Set12' # apparently not a formal name/title
+            'traits': [
+                {'apiName', 'desc', 'effects', 'icon', 'name'}, # effects = describes each trait "tier"
+                {}
+            ]
+        }
+    }
+}
+
+
+{
+    'ability':
+    {
+        'desc': 'Place a bomb on the target, dealing '
+                           '<magicDamage>@ModifiedInitialDamage@ '
+                           '(%i:scaleAP%)</magicDamage> magic damage and '
+                           '<TFTKeyword>Stunning</TFTKeyword> them for '
+                           '@StunDuration@ seconds. When the stun ends or the '
+                           'target dies, the bomb explodes, dealing '
+                           '<magicDamage>@ModifiedDamage@ '
+                           '(%i:scaleAP%)</magicDamage> magic damage to the '
+                           'target and <magicDamage>@ModifiedSecondaryDamage@ '
+                           '(%i:scaleAP%)</magicDamage> magic damage to '
+                           'adjacent enemies. ',
+        'icon': 'ASSETS/Characters/TFT12_Zilean/HUD/Icons2D/Zilean_Q.TFT_Set12.tex',
+        'name': 'Time Bomb',
+        'variables': [
+            {'name': 'Damage','value': [120.0,180.0,270.0,405.0,570.0,0.0,0.0]},
+            {'name': 'StunDuration', 'value': [1.25,1.25,1.25,1.25,1.25,1.25,1.25]},
+            {'name': 'ShieldReaveDuration', 'value': [4.0,4.0,4.0,4.0,4.0,4.0,4.0]},
+            {'name': 'ShieldReavePercent', 'value': [0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355,0.3499999940395355]},
+            {'name': 'SecondaryDamage', 'value': [100.0,150.0,225.0,340.0,475.0,0.0,0.0]},
+            {'name': 'InitialDamage', 'value': [120.0,180.0,270.0,405.0,570.0,0.0,0.0]}
+        ]
+    },
+    'apiName': 'TFT12_Zilean',
+    'characterName': 'TFT12_Zilean',
+    'cost': 2,
+    'icon': 'ASSETS/Characters/TFT12_Zilean/Skins/Base/Images/TFT12_Zilean.TFT_Set12.tex',
+    'name': 'Zilean',
+    'squareIcon': 'ASSETS/Characters/TFT12_Zilean/Skins/Base/Images/TFT12_Zilean_Mobile.TFT_Set12.tex',
+    'stats': {
+        'armor': 20.0,
+        'attackSpeed': 0.75,
+        'critChance': 0.25,
+        'critMultiplier': 1.399999976158142,
+        'damage': 35.0,
+        'hp': 550.0,
+        'initialMana': 20.0,
+        'magicResist': 20.0,
+        'mana': 70.0,
+        'range': 4.0
+    },
+    'tileIcon': 'ASSETS/Characters/TFT12_Zilean/HUD/TFT12_Zilean_Square.TFT_Set12.tex',
+    'traits': ['Frost', 'Chrono', 'Preserver']
+}
