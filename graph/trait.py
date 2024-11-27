@@ -3,7 +3,11 @@ import networkx as nx
 from data_io.tft import get_base_unit_data, get_unique_traits, COLOR_MAP
 
 
-def get_trait_node_graph(set_num, show_unique_traits=False, costs=list(range(1, 6))):
+def get_trait_node_graph(set_num, show_unique_traits=False, costs=None, closeness=0.07):
+
+    if not costs:
+        costs = list(range(1, 6))
+
     edge_list = []
     for champ in get_base_unit_data(set_num):
         if champ['cost'] not in costs:
@@ -11,7 +15,8 @@ def get_trait_node_graph(set_num, show_unique_traits=False, costs=list(range(1, 
         edge_attrs = {
             'cost': champ['cost'],
             'label': champ['name'],
-            'color': COLOR_MAP[champ['cost']]
+            'color': COLOR_MAP[champ['cost']],
+            'closeness': closeness
         }
         if len(champ['traits']) > 1:
             edge_list.append((champ['traits'][0], champ['traits'][1], edge_attrs,))
