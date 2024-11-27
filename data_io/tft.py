@@ -20,11 +20,16 @@ def get_unique_traits(set_number):
     for trait in base_json['traits']:
         first_trait_tier = trait['effects'][0]
         if first_trait_tier['minUnits'] == 1 and first_trait_tier['maxUnits'] > 10:
-            unique_traits.append(trait['name'])
+            unique_traits.append((trait['name'], trait['apiName']))
     return unique_traits
 
 
-def get_base_data(set_num):
+def get_emblem_list(set_number):
+    json = get_set_json(set_number)
+    return [i_name for i_name in json['items'] if 'Emblem' in i_name]
+
+
+def get_base_unit_data(set_num):
     full_set_json = get_set_json(set_num)
     keys = {'name', 'traits', 'cost'}
     return_list = []
