@@ -1,5 +1,6 @@
 from graph.trait import get_trait_node_graph
 from graph.unit import get_unit_node_graph
+from data_io.tft import get_base_unit_data, get_unique_traits
 from matplotlib import pyplot as plt
 import networkx as nx
 
@@ -21,33 +22,44 @@ def draw_trait_web(trait_graph, layout):
     plt.show()
 
 
-#one_costs = get_trait_node_graph(13, costs=[1])
-#anchor_positions = nx.circular_layout(one_costs)
-initial_graph = get_unit_node_graph(13, costs=[4, 5])
+def links_subgraph(base_graph, target_nodes):
 
-#target_nodes = ['Darius', 'Violet', 'Camille', 'Urgot', 'Gangplank', 'Ambessa', 'Vi', 'Jayce', 'Sevika']
-#target_nodes = ['Morgana', 'Cassiopeia', 'Heimerdinger'] # Blue Buff
-#target_nodes = ['Draven', 'Zeri'] # Rageblade
+    one_step_nodes = set()
+    edges_to_keep = set()
+    for edge in base_graph.edges:
+        if edge[0] in target_nodes and edge[1] not in target_nodes:
+            possible = edge[1]
+            edges_to_keep.add(edge)
+        elif edge[1] in target_nodes and edge[0] not in target_nodes:
+            possible = edge[0]
+            edges_to_keep.add(edge)
+        else:
+            continue
 
-#['Lux', 'Zyra', 'Powder', 'Vex']
-#['Renata Glasc', 'Ziggs', 'Nami', 'Twisted Fate']
-#['Dr. Mundo', 'Elise', 'Garen', 'Illaoi']
-#target_nodes = ['Elise', 'Illaoi']
+    first_round_subgraph = nx.edge_subgraph(base_graph, edges=edges_to_keep)
 
 
-#one_step_nodes = [x[1] for x in initial_graph.edges if x[0] in target_nodes]
-#print(one_step_nodes)
-#one_step_nodes.extend([x[0] for x in initial_graph.edges if x[1] in target_nodes])
-#target_nodes.extend(one_step_nodes)
+    return first_round_subgraph
+
+
+target_nodes = []
+unique_trait_names = {x[0] for x in get_unique_traits(13)}
+
+for unit in get_base_unit_data(13):
+    non_uniques = set(unit['traits']) - unique_trait_names
+
+    if len(non_uniques) == 3 and unit['cost'] in [1, 2, 3]:
+        target_nodes.append(unit['name'])
+
 
 #trait_graph = nx.subgraph(initial_graph, set(target_nodes))
 #nx.edge_subgraph()
-
-
 #my_g = nx.compose(one_costs, two_costs)
 
-#final_layout = nx.spring_layout(my_g, pos=anchor_positions, fixed=one_costs.nodes)
-draw_trait_web(initial_graph, nx.spring_layout(initial_graph, k=.1))
+initial_graph = get_unit_node_graph(13)
+trait_graph = links_subgraph(initial_graph, {'Heimerdinger', 'Silco', 'Zoe'})
+#final_layout = nx.spring_layout(initial_graph, pos=anchor_positions, fixed=one_costs.nodes)
+draw_trait_web(trait_graph, nx.spring_layout(trait_graph))
 
 
 
