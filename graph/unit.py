@@ -1,15 +1,15 @@
-from data_io.tft import get_set_json, get_base_unit_data, get_unique_traits, COLOR_MAP
+from data_io.tft import TFTSetBlob, COLOR_MAP
 import networkx as nx
 import itertools
 
 
-def get_unit_node_graph(set_num, costs=None):
+def get_unit_node_graph(set_blob: TFTSetBlob, costs=None):
 
     if not costs:
         costs = list(range(1, 6))
 
     graph = nx.Graph()
-    for champ in get_base_unit_data(set_num):
+    for champ in set_blob.get_base_unit_data():
         if champ['cost'] not in costs:
             continue
         graph.add_node(

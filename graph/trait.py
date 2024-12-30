@@ -1,15 +1,15 @@
 import networkx as nx
 
-from data_io.tft import get_base_unit_data, get_unique_traits, COLOR_MAP
+from data_io.tft import TFTSetBlob, COLOR_MAP
 
 
-def get_trait_node_graph(set_num, show_unique_traits=False, costs=None, closeness=0.07):
+def get_trait_node_graph(set_blob: TFTSetBlob, show_unique_traits=False, costs=None, closeness=0.07):
 
     if not costs:
         costs = list(range(1, 6))
 
     edge_list = []
-    for champ in get_base_unit_data(set_num):
+    for champ in set_blob.get_base_unit_data():
         if champ['cost'] not in costs:
             continue
         edge_attrs = {
@@ -27,7 +27,7 @@ def get_trait_node_graph(set_num, show_unique_traits=False, costs=None, closenes
     graph = nx.MultiGraph(edge_list)
 
     if not show_unique_traits:
-        trait_names = [x[0] for x in get_unique_traits(set_num)]
+        trait_names = [x[0] for x in set_blob.get_unique_traits()]
         graph.remove_nodes_from(trait_names)
 
     return graph
