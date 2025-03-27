@@ -67,3 +67,13 @@ class TFTDataSeed(metaclass=SeedRegistry):
     def _convert(raw_record):
         raise NotImplementedError
 
+
+def camel_to_snake(some_str):
+
+    new_str = ""
+    for char in some_str:
+        if char.isupper():
+            new_str += "_" + char.lower()
+        else:
+            new_str += char
+    return new_str

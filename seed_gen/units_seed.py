@@ -1,6 +1,6 @@
 from collections import OrderedDict
-from json import dumps
-from seed_gen.base import TFTDataSeed
+from seed_gen.base import TFTDataSeed, camel_to_snake
+from copy import deepcopy
 
 summon_units = {
     "TFT_TrainingDummy",
@@ -8,16 +8,6 @@ summon_units = {
     "TFT14_SummonLevel2",
     "TFT14_SummonLevel4"
 }
-
-def camel_to_snake(some_str):
-
-    new_str = ""
-    for char in some_str:
-        if char.isupper():
-            new_str += "_" + char.lower()
-        else:
-            new_str += char
-    return new_str
 
 
 class TFTUnitSeed(TFTDataSeed):
@@ -33,13 +23,39 @@ class TFTUnitSeed(TFTDataSeed):
 
     @staticmethod
     def _convert(raw_record):
-        keys_to_keep = ["name", "apiName", "cost", "traits", "role"]
+        keys_to_keep = ["name", "apiName", "cost", "role"]
         base_dict = OrderedDict(
             {camel_to_snake(k): raw_record[k] for k in keys_to_keep})
         base_dict["shop_unit"] = len(raw_record['traits']) > 0
-        base_dict["traits"] = dumps(base_dict["traits"])
         flattened_stats = {
             f"stats_{camel_to_snake(k)}": v for k, v in raw_record['stats'].items()
         }
         base_dict.update(flattened_stats)
         return base_dict
+
+
+class TFTUnitTraitSeed(TFTDataSeed):
+
+    seed_name = "unit_innate_traits"
+
+    def _extract(self):
+        initial = self.set_blob.data['champions']
+        records = []
+        for champ in initial:
+            for trait in champ['traits']:
+                new_dict = deepcopy(champ)
+                new_dict['single_trait_entry'] = trait
+                records.append(new_dict)
+        return records
+
+    @staticmethod
+    def _filter(raw_record):
+        return len(raw_record['traits']) > 0
+
+    @staticmethod
+    def _convert(raw_record):
+        fields = ['name', 'apiName', 'single_trait_entry']
+        base = OrderedDict({camel_to_snake(k): raw_record[k] for k in fields})
+        base['trait'] = base['single_trait_entry']
+        del base['single_trait_entry']
+        return base
