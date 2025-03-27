@@ -1,0 +1,5 @@
+AUGMENT_HASH_MARKER = '{b72bd3bf}'
+
+SILVER_AUGMENT = '{d11fd6d5}'
+GOLD_AUGMENT = '{ce1fd21c}'
+PRISMATIC_AUGMENT = '{cf1fd3af}'

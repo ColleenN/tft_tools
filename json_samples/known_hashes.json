@@ -1,0 +1,52 @@
+{
+  'augments': {
+    '{b72bd3bf}': 'Augments',
+    '{d11fd6d5}': 'Silver Augments',
+    '{ce1fd21c}': 'Gold Augments',
+    '{cf1fd3af}': 'Prismatic Augments',
+
+    '{1062df02}': 'Positioning Augments?',
+    '{1f815778}': 'Item Augments?',
+    '{23454359}': 'Salvage Bin Augments?',
+    '{24d36c27}': 'Econ Augments?',
+    '{3754d0ae}': 'Trait Augments',
+    '{382a7131}': 'Build-Around Augments?',
+    '{38baf02e}': 'Trait Augments + ChugBug?',
+    '{39baf1c1}': 'Trait Augments?',
+    '{4529fead}': 'Econ Augments?',
+    '{4905572a}': 'Non-emblem Trait Augments?',
+    '{92e7310e}': 'Some Augment subset???',
+    '{d02ae323}': 'Some Augment subset???',
+    '{848ab891}': 'Greater Moonlight',
+    '{807eed8a}': 'Various combat augments?',
+    '{c5c463aa}': 'Bench/Bank augments + Glass Cannon?',
+    '{af5e87d2}': 'Loss Streak Augments?',
+    '{b2be200a}': 'AP Augments?',
+    '{94b91e70}': 'Silver Delayed Effect Augments?',
+    '{c762cf50}': 'Void Swarm',
+    '{8fba48a3}': 'Item Augments?',
+  },
+  'items': {
+    'Consumable': 'Consumable',
+    'TFT_Consumable_ItemRemover': 'TFT_Consumable_ItemRemover',
+    'TFT_Consumable_ItemReroller': 'TFT_Consumable_ItemReroller',
+    'component': 'Component',
+    '{fb608fdb}': 'Assist Gold',
+    '{56b1acc8}': 'Loot Orbs',
+    '{b4fe26c6}': 'Possible Armory Options',
+
+    '{27557a09}': 'Support Items',
+    '{44ace175}': 'Artifact Item',
+    '{d304f83b}': 'Tac Items',
+    '{7ea41d13}': 'Regular Craftable Items',
+    '{ebcd1bac}': 'Emblems & Net God Mods',
+    '{6ef5c598}': 'Radiant Items',
+    '{218b53a5}': 'TG Items',
+
+    '{2905e581}': 'TG Items & Zephyr/Shroud',
+    '{eda79d90}': 'Determined Investor???',
+    '{ec243f6b}': 'Some Radiants (Those added in 9.5?) + Artifacts (Those added in set 11?) + Tac Items + a few legacy items',
+    '{d8d00bcc}': 'All Support Items + Shimmerscale + Support TG + Ornn TG + Emblem effects (excluding origin emblems)',
+  }
+}
+
