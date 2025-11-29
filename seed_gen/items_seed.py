@@ -27,26 +27,26 @@ non_equippable_item_hashes = {
 }
 
 component_name_map = {
-    'TFT_Item_BFSword': 'swords',
-    'TFT_Item_ChainVest': 'vests',
-    'TFT_Item_FryingPan': 'pans',
-    'TFT_Item_GiantsBelt': 'belts',
-    'TFT_Item_NeedlesslyLargeRod': 'rods',
-    'TFT_Item_NegatronCloak': 'cloaks',
-    'TFT_Item_RecurveBow': 'bows',
-    'TFT_Item_SparringGloves': 'gloves',
-    'TFT_Item_Spatula': 'spats',
-    'TFT_Item_TearOfTheGoddess': 'tears',
+    'TFT_Item_BFSword': 'num_swords',
+    'TFT_Item_ChainVest': 'num_vests',
+    'TFT_Item_FryingPan': 'num_pans',
+    'TFT_Item_GiantsBelt': 'num_belts',
+    'TFT_Item_NeedlesslyLargeRod': 'num_rods',
+    'TFT_Item_NegatronCloak': 'num_cloaks',
+    'TFT_Item_RecurveBow': 'num_bows',
+    'TFT_Item_SparringGloves': 'num_gloves',
+    'TFT_Item_Spatula': 'num_spats',
+    'TFT_Item_TearOfTheGoddess': 'num_tears',
 }
 
 flag_hashes = {
-    'artifact': '{44ace175}',
-    'radiant': '{6ef5c598}',
-    'support': '{27557a09}',
-    'emblem': '{ebcd1bac}',
-    'component': 'component',
-    'tg_item': '{218b53a5}',
-    'tac_item': '{d304f83b}',
+    'artifacts': '{44ace175}',
+    'radiants': '{6ef5c598}',
+    'supports': '{27557a09}',
+    'emblems': '{ebcd1bac}',
+    'components': 'component',
+    'tg_items': '{218b53a5}',
+    'tac_items': '{d304f83b}',
 }
 
 
@@ -81,18 +81,16 @@ class TFTItemSeed(TFTDataSeed):
         base = OrderedDict()
         base.update({
             'name': raw_record['name'],
-            'api_name': raw_record['apiName'],
+            'api_name': raw_record['apiName'].upper(),
             'effects': dumps(raw_record['effects']),
             'trait_granted': raw_record['incompatibleTraits'][0] if raw_record[
                 'incompatibleTraits'] else "",
             'unique': raw_record['unique']
         })
-        base['craftable'] = bool(raw_record['composition'])
+        base['num_craftables'] = 1 if raw_record['composition'] else 0
 
         for key, hash in flag_hashes.items():
-            base[key] = hash in raw_record['tags']
-
-
+            base[f"num_{key}"] = 1 if hash in raw_record['tags'] else 0
 
         component_map = {v: 0 for k, v in component_name_map.items()}
         if 'component' in raw_record['tags']:

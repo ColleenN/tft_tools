@@ -33,7 +33,7 @@ class TFTTraitTiersSeed(TFTDataSeed):
 
         base = OrderedDict({
             'name': raw_record['name'],
-            'api_name': raw_record['apiName']
+            'api_name': raw_record['apiName'].upper()
         })
         base['type'] = icon_style_map[raw_record['tier_effect']['style']]
         effect_fields = OrderedDict(
