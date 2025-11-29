@@ -22,7 +22,7 @@ class TFTSetBlob:
     def _load_data(self):
         if not self.offline:
             from data_io.gcp import read_from_bucket
-            base = json.loads(read_from_bucket('tft_set_data', 'base_tft_json'))
+            base = json.loads(read_from_bucket('tft_infra_metadata', 'base_tft_json'))
         else:
             with Path('../json_samples/en_us.json').open() as f:
                 base = json.loads(f.read())
