@@ -4,12 +4,12 @@ from google.cloud import storage
 import httpx
 
 
-CDRAGON_SRC_URL = 'https://raw.communitydragon.org/latest/cdragon/tft/en_us.json'
-DST_BUCKET = 'tft_set_data'
+CDRAGON_SRC_URL = 'https://raw.communitydragon.org/pbe/cdragon/tft/en_us.json'
+DST_BUCKET = 'tft_infra_metadata'
 
 
 def write_to_bucket(bucket_name, file_path, data, mode):
-    storage_client = storage.Client()
+    storage_client = storage.Client(project='tft-data')
     bucket = storage_client.get_bucket(bucket_name)
     with bucket.blob(file_path).open(mode, encoding='utf-8') as f:
         f.write(data)

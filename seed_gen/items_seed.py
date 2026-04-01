@@ -14,7 +14,9 @@ equippable_item_hashes = {
     '{6ef5c598}',
     '{ebcd1bac}',
     '{eda79d90}',
-    '{218b53a5}'
+    '{218b53a5}',
+    '{a3eeef8b}',
+    '{b73b012f}'
 }
 
 non_equippable_item_hashes = {
@@ -70,18 +72,20 @@ class TFTItemSeed(TFTDataSeed):
             return False
 
         if item_hash_set & equippable_item_hashes:
+            return not raw_record['apiName'] == 'TFT16_Item_Bilgewater_BrigandsDice'
+
+        if raw_record['apiName'] == 'TFT9_Item_CrownOfDemacia':
             return True
 
-        if 'CyberneticItem' in raw_record['apiName']:
-            return True
+
         return False
 
     @staticmethod
     def _convert(raw_record):
         base = OrderedDict()
         base.update({
-            'name': raw_record['name'],
-            'api_name': raw_record['apiName'].upper(),
+            'item_name': raw_record['name'],
+            'item_api_name': raw_record['apiName'].upper(),
             'effects': dumps(raw_record['effects']),
             'trait_granted': raw_record['incompatibleTraits'][0] if raw_record[
                 'incompatibleTraits'] else "",
