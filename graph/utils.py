@@ -46,3 +46,47 @@ def common_neighbors_subgraph(graph, target_nodes: Iterable[str]):
             included_nodes.update(set(nx.common_neighbors(graph, src_node, dst_node)))
 
     return nx.subgraph(graph, (included_nodes | node_set))
+
+
+def links_subgraph_by_nodes(base_graph, target_nodes):
+
+    edges_to_keep = set()
+    for edge in base_graph.edges:
+        if edge[0] in target_nodes and edge[1] not in target_nodes:
+            edges_to_keep.add(edge)
+        elif edge[1] in target_nodes and edge[0] not in target_nodes:
+            edges_to_keep.add(edge)
+        elif edge[0] in target_nodes and edge[1] in target_nodes:
+            edges_to_keep.add(edge)
+        else:
+            continue
+
+    first_round_subgraph = nx.edge_subgraph(base_graph, edges=edges_to_keep)
+    return first_round_subgraph
+
+
+def links_subgraph_by_edges(base_graph, target_edges):
+
+    target_nodes = set()
+    for edge in target_edges:
+        target_nodes.add(edge[0])
+        target_nodes.add(edge[1])
+
+    first_round_subgraph = links_subgraph_by_nodes(base_graph, target_nodes)
+    nodes_to_keep = set()
+    node_list = sorted(first_round_subgraph.degree, key=lambda x: x[1], reverse=True)
+    for item in node_list:
+        if item[0] not in target_nodes:
+            nodes_to_keep.add(item[0])
+        if len(nodes_to_keep) == 3:
+            break
+    nodes_to_keep.update(target_nodes)
+    return nx.induced_subgraph(first_round_subgraph, nodes_to_keep)
+
+
+def get_edges_by_attribute(graph, attribute, target: str | Iterable[str]):
+    if isinstance(target, str):
+        values = [target]
+    else:
+        values = target
+    return [x for x in graph.edges.data() if x[2].get(attribute) in values]

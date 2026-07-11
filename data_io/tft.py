@@ -63,6 +63,8 @@ class TFTSetBlob:
     def get_unique_traits(self):
         unique_traits = []
         for trait in self.data['traits']:
+            if not trait['effects']:
+                continue
             first_trait_tier = trait['effects'][0]
             if first_trait_tier['minUnits'] == 1 and first_trait_tier['maxUnits'] > 10:
                 unique_traits.append((trait['name'], trait['apiName']))

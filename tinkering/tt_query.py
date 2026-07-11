@@ -1,13 +1,15 @@
 import httpx
 import json
-from data_io.tft import get_emblem_list, get_unique_traits
+from data_io.tft import TFTSetBlob
 from pprint import pprint
 
 
-url = "https://d2.tft.tools/combos/explorer/1100/14230/1"
+url = "https://d2.tft.tools/combos/explorer/1100/15020/2"
+
+set_data = TFTSetBlob(13)
 
 emblem_filter = []
-for name in get_emblem_list(13):
+for name in set_data.get_emblem_list():
     emblem_filter.append(
         {
             "typ": "i",
@@ -34,11 +36,11 @@ data = json.loads(response.content)
 
 #pprint(data['traits'])
 processed = sorted(data['traits'], key=lambda t: t[2]['delta'])
-uniques = [x[1] for x in get_unique_traits(13)]
+uniques = [x[1] for x in set_data.get_unique_traits()]
 final = []
 for item in processed:
 
-    if item[0] in uniques or item[2]['count'] < 500:
+    if item[0] in uniques or item[2]['count'] < 3000:
         continue
 
     final_dict = item[2]
